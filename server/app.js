@@ -1,5 +1,4 @@
 const express = require('express');
-const htpp = require('http');
 const mongoose = require('mongoose');
 const authRouter = require('./routes/auth');
 

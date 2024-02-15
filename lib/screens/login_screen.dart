@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_node_auth/screens/home_screen.dart';
+import 'package:flutter_node_auth/services/auth_services.dart';
 import 'package:flutter_node_auth/widgets/custom_button.dart';
 import 'package:flutter_node_auth/widgets/custom_text_field.dart';
 
@@ -16,12 +17,21 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final AuthServices authServices = AuthServices();
 
   @override
   void dispose() {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
+  }
+
+  void signIn() async {
+    await authServices.signIn(
+      email: emailController.text,
+      password: passwordController.text,
+      context: context,
+    );
   }
 
   @override

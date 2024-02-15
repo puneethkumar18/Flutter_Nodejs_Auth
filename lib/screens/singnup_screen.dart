@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_node_auth/screens/home_screen.dart';
 import 'package:flutter_node_auth/screens/login_screen.dart';
+import 'package:flutter_node_auth/services/auth_services.dart';
 import 'package:flutter_node_auth/widgets/custom_button.dart';
 import 'package:flutter_node_auth/widgets/custom_text_field.dart';
 
@@ -16,13 +17,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
-
+  final AuthServices authServices = AuthServices();
   @override
   void dispose() {
     super.dispose();
     emailController.dispose();
     nameController.dispose();
     passwordController.dispose();
+  }
+
+  void signUp() async {
+    await authServices.signUp(
+      name: nameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+      context: context,
+    );
   }
 
   @override
@@ -52,19 +62,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: const ListTile(
                 title: Text(
                   'List of Screens',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white
-                  ),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             ),
-             ListTile(
+            ListTile(
               title: const Text(
                 'SignUp Screen',
                 style: TextStyle(fontSize: 20, color: Colors.teal),
               ),
-              onTap: (){
+              onTap: () {
                 Navigator.pushNamed(context, SignUpScreen.routeName);
               },
             ),
